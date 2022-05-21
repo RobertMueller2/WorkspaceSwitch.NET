@@ -14,6 +14,9 @@ namespace WorkspaceSwitcher
         [DllImport("user32.dll")]
         private static extern int GetMessageA(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
 
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
         public static void Main(string[] args)
         {
 
@@ -30,6 +33,9 @@ namespace WorkspaceSwitcher
                 hotkeys.Add(new Hotkey(0x200+i, mod_move, 0x30+i));
                 hotkeys.Add(new Hotkey(0x400+i, mod_move_and_switch, 0x30+i));
             }
+
+            //bind mod+shift+t
+            hotkeys.Add(new Hotkey(0x800, mod_move_and_switch, 0x54));
 
             MSG message;
             int rv;
@@ -61,6 +67,10 @@ namespace WorkspaceSwitcher
                         case 0x400:
                             Desktop.FromIndex(hotkey.ToTarget().AdjustOverflow()).MoveActiveWindowAndSwitch();
                             break;
+                        case 0x800:
+                            //FIXME: If there is only one hotkey, no further distinction is necessary (yet)
+                            TogglePinnedStatus();
+                            break;
                     }
                 } catch (Exception e) {
                     Console.WriteLine("Exception occurred: {0}", e.ToString());
@@ -70,6 +80,15 @@ namespace WorkspaceSwitcher
 
             }
 
+        }
+
+        public static void TogglePinnedStatus() {
+            IntPtr hwnd = GetForegroundWindow();
+            if (Desktop.IsWindowPinned(hwnd)) {
+                Desktop.UnpinWindow(hwnd);
+            } else {
+                Desktop.PinWindow(hwnd);
+            }
         }
 
     }
