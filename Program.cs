@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using VirtualDesktop;
 
 namespace WorkspaceSwitcher
 {
@@ -45,16 +47,26 @@ namespace WorkspaceSwitcher
                 }
 
                 Debug.WriteLine("Message {0:X}, Hotkey: {1:X}", message.message, message.wParam.ToInt32());
-                int hotkey = message.wParam.ToInt32();
-                switch (hotkey & 0x700) {
-                    case 0x100:
-                        VirtualDesktop.Desktop.FromIndex(hotkey & ~0x700 -1).MakeVisible();
-                        break;
-                    case 0x200:
-                        break;
-                    case 0x400:
-                        break;
+                Int32 hotkey = message.wParam.ToInt32();
+
+                try {
+                    //FIXME: this could potentially be methods in Hotkey, but would require lookup
+                    switch (hotkey.ToIdModifier()) {
+                        case 0x100:
+                            Desktop.FromIndex(hotkey.ToTarget().AdjustOverflow()).MakeVisible();
+                            break;
+                        case 0x200:
+                            Desktop.FromIndex(hotkey.ToTarget().AdjustOverflow()).MoveActiveWindow();
+                            break;
+                        case 0x400:
+                            Desktop.FromIndex(hotkey.ToTarget().AdjustOverflow()).MoveActiveWindowAndSwitch();
+                            break;
+                    }
+                } catch (Exception e) {
+                    Console.WriteLine("Exception occurred: {0}", e.ToString());
                 }
+
+                //FIXME: intercept process end, Ctrl+C etc to unregister hotkeys
 
             }
 

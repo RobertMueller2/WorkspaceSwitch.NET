@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net4.8</TargetFramework>
+    <!-- <TargetFramework>net6.0-windows</TargetFramework> -->
+    <!-- not available in 4.8 -->
+    <!-- <ImplicitUsings>enable</ImplicitUsings> -->
+    <!--<Nullable>enable</Nullable>-->
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
