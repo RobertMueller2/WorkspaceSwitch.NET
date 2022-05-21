@@ -1,0 +1,7 @@
+Powershell:
+
+$x = [System.Reflection.Assembly]::LoadFrom(".\bin\Debug\net4.8\WorkspaceSwitch.NET.exe")   
+$x.GetManifestResourceNames()
+$x.GetName()
+
+etc

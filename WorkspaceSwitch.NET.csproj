@@ -1,19 +1,61 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net4.8</TargetFramework>
     <!-- <TargetFramework>net6.0-windows</TargetFramework> -->
     <!-- not available in 4.8 -->
     <!-- <ImplicitUsings>enable</ImplicitUsings> -->
     <!--<Nullable>enable</Nullable>-->
     <UseWPF>true</UseWPF>
+    <StartupObject>WorkspaceSwitcher.Program</StartupObject>
+    <ApplicationIcon>res\WS.ico</ApplicationIcon>
+    <RootNamespace>WorkspaceSwitcher</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="VirtualDesktop">
       <HintPath>..\_3rdparty\VirtualDesktop\VirtualDesktop11.exe</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 
+  <Target Name="EmbedLocal" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <EmbeddedResource Include="res\WS.ico">
+        <LogicalName>AppIcon</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\1.ico">
+        <LogicalName>Icon1</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\2.ico">
+        <LogicalName>Icon2</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\3.ico">
+        <LogicalName>Icon3</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\4.ico">
+        <LogicalName>Icon4</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\5.ico">
+        <LogicalName>Icon5</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\6.ico">
+        <LogicalName>Icon6</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\7.ico">
+        <LogicalName>Icon7</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\8.ico">
+        <LogicalName>Icon8</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\9.ico">
+        <LogicalName>Icon9</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\10.ico">
+        <LogicalName>Icon10</LogicalName>
+      </EmbeddedResource>
+    </ItemGroup>
+  <Message Text="Embed local references complete for $(OutputPath)$(TargetFileName)." Importance="high" />
+  </Target>
 </Project>
