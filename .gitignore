@@ -1,3 +1,6 @@
+.vs
+.vscode/launch.json
+.vscode/tasks.json
 bin
 obj
 .vscode/tasks.json
