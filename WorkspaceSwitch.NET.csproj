@@ -11,11 +11,12 @@
     <StartupObject>WorkspaceSwitcher.Program</StartupObject>
     <ApplicationIcon>res\WS.ico</ApplicationIcon>
     <RootNamespace>WorkspaceSwitcher</RootNamespace>
+    <DefaultItemExcludes>$(DefaultItemExcludes);VirtualDesktop\*</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="VirtualDesktop">
-      <HintPath>..\_3rdparty\VirtualDesktop\VirtualDesktop11.exe</HintPath>
+      <HintPath>VirtualDesktop\VirtualDesktop11.exe</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
