@@ -14,12 +14,7 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);VirtualDesktop\*</DefaultItemExcludes>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="VirtualDesktop">
-      <HintPath>VirtualDesktop\VirtualDesktop11.exe</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
+  <Import Project="LocalSettings.csproj" />
 
   <Target Name="EmbedLocal" BeforeTargets="PrepareForBuild">
     <ItemGroup>

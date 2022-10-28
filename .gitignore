@@ -6,3 +6,4 @@ obj
 .vscode/tasks.json
 .vscode/launch.json
 .vs
+LocalSettings.csproj
