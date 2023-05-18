@@ -16,12 +16,11 @@
         {
             "label": "publish",
             "command": "dotnet",
-            "type": "process",
+            "type": "shell",
             "args": [
                 "publish",
-                "${workspaceFolder}/WorkspaceSwitch.NET.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+		"${workspaceFolder}/WorkspaceSwitch.NET.csproj",
+		"--configuration=Release"
             ],
             "problemMatcher": "$msCompile"
         },
