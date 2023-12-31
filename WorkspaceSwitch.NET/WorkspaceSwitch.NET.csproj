@@ -54,4 +54,8 @@
     </ItemGroup>
   <Message Text="Embed local references complete for $(OutputPath)$(TargetFileName)." Importance="high" />
   </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Win32HotkeyListener\Win32HotkeyListener.csproj" />
+  </ItemGroup>
 </Project>

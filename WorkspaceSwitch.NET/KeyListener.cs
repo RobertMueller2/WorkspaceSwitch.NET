@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using VirtualDesktop;
+using Win32HotkeyListener.Win32;
 
 namespace WorkspaceSwitcher {
     static class KeyListener {
@@ -70,8 +71,8 @@ namespace WorkspaceSwitcher {
 
         }
 
-        public static List<Hotkey> RegisterHotkeys() {
-            var hotkeys = new List<Hotkey>();
+        public static List<User32Hotkey> RegisterHotkeys() {
+            var hotkeys = new List<User32Hotkey>();
             var mod_switch = ((uint)(ModifierKeys.MOD_WIN | ModifierKeys.MOD_NOREPEAT));
             var mod_move = ((uint)(ModifierKeys.MOD_WIN | ModifierKeys.MOD_SHIFT |
                 ModifierKeys.MOD_NOREPEAT));
@@ -80,13 +81,13 @@ namespace WorkspaceSwitcher {
 
             for (uint i = 0; i < 10; i++) {
                 uint keycode = 0x30 + i;
-                hotkeys.Add(new Hotkey(0x100 + i, mod_switch, 0x30 + i));
-                hotkeys.Add(new Hotkey(0x200 + i, mod_move, 0x30 + i));
-                hotkeys.Add(new Hotkey(0x400 + i, mod_move_and_switch, 0x30 + i));
+                hotkeys.Add(new User32Hotkey(0x100 + i, mod_switch, 0x30 + i));
+                hotkeys.Add(new User32Hotkey(0x200 + i, mod_move, 0x30 + i));
+                hotkeys.Add(new User32Hotkey(0x400 + i, mod_move_and_switch, 0x30 + i));
             }
 
             //bind mod+shift+t
-            hotkeys.Add(new Hotkey(0x800, mod_move_and_switch, 0x54));
+            hotkeys.Add(new User32Hotkey(0x800, mod_move_and_switch, 0x54));
 
             return hotkeys;
         }
