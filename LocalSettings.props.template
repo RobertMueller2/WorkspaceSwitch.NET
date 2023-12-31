@@ -2,7 +2,8 @@
 
   <ItemGroup>
     <Reference Include="VirtualDesktop">
-      <HintPath>VirtualDesktop\VirtualDesktop1803.exe</HintPath>
+      <!-- this file is included beneath, so the path is relative to that -->
+      <HintPath>..\VirtualDesktop\VirtualDesktop1803.exe</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>

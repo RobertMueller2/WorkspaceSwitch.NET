@@ -14,17 +14,16 @@ namespace WorkspaceSwitcher {
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 
-
         public static BackgroundWorker run() {
 
-            var w = new BackgroundWorker ();
-            w.DoWork += new DoWorkEventHandler(backgroundworker_DoWork);
+            var w = new BackgroundWorker();
+            w.DoWork += new DoWorkEventHandler(Backgroundworker_DoWork);
             w.WorkerSupportsCancellation = true;
             w.RunWorkerAsync();
             return w;
         }
 
-        public static void backgroundworker_DoWork(object sender, DoWorkEventArgs e) {
+        public static void Backgroundworker_DoWork(object sender, DoWorkEventArgs e) {
 
             var hotkeys = RegisterHotkeys();
 
@@ -62,7 +61,8 @@ namespace WorkspaceSwitcher {
                             TogglePinnedStatus();
                             break;
                     }
-                } catch (Exception ex) {
+                }
+                catch (Exception ex) {
                     Console.WriteLine("Exception occurred: {0}", ex.ToString());
                 }
 
@@ -71,18 +71,18 @@ namespace WorkspaceSwitcher {
         }
 
         public static List<Hotkey> RegisterHotkeys() {
-            var hotkeys = new List<Hotkey> ();
-            var mod_switch = ((uint) (ModifierKeys.MOD_WIN | ModifierKeys.MOD_NOREPEAT));
-            var mod_move = ((uint) (ModifierKeys.MOD_WIN | ModifierKeys.MOD_SHIFT | 
+            var hotkeys = new List<Hotkey>();
+            var mod_switch = ((uint)(ModifierKeys.MOD_WIN | ModifierKeys.MOD_NOREPEAT));
+            var mod_move = ((uint)(ModifierKeys.MOD_WIN | ModifierKeys.MOD_SHIFT |
                 ModifierKeys.MOD_NOREPEAT));
-            var mod_move_and_switch = ((uint) (ModifierKeys.MOD_WIN | ModifierKeys.MOD_SHIFT |
+            var mod_move_and_switch = ((uint)(ModifierKeys.MOD_WIN | ModifierKeys.MOD_SHIFT |
                 ModifierKeys.MOD_CONTROL | ModifierKeys.MOD_NOREPEAT));
 
-            for (uint i=0; i<10; i++) {
+            for (uint i = 0; i < 10; i++) {
                 uint keycode = 0x30 + i;
-                hotkeys.Add(new Hotkey(0x100+i, mod_switch, 0x30+i));
-                hotkeys.Add(new Hotkey(0x200+i, mod_move, 0x30+i));
-                hotkeys.Add(new Hotkey(0x400+i, mod_move_and_switch, 0x30+i));
+                hotkeys.Add(new Hotkey(0x100 + i, mod_switch, 0x30 + i));
+                hotkeys.Add(new Hotkey(0x200 + i, mod_move, 0x30 + i));
+                hotkeys.Add(new Hotkey(0x400 + i, mod_move_and_switch, 0x30 + i));
             }
 
             //bind mod+shift+t
@@ -95,7 +95,8 @@ namespace WorkspaceSwitcher {
             IntPtr hwnd = GetForegroundWindow();
             if (Desktop.IsWindowPinned(hwnd)) {
                 Desktop.UnpinWindow(hwnd);
-            } else {
+            }
+            else {
                 Desktop.PinWindow(hwnd);
             }
         }

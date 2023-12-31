@@ -14,7 +14,7 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);VirtualDesktop\*</DefaultItemExcludes>
   </PropertyGroup>
 
-  <Import Project="LocalSettings.props" />
+  <Import Project="..\LocalSettings.props" />
 
   <Target Name="EmbedLocal" BeforeTargets="PrepareForBuild">
     <ItemGroup>

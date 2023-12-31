@@ -1,7 +1,7 @@
-.vs
-.vscode/launch.json
-.vscode/tasks.json
-bin
-obj
+**/.vs
+**/.vscode/launch.json
+**/.vscode/tasks.json
+**/bin
+**/obj
 LocalSettings.props
 msbuild.cfg
