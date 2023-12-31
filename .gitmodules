@@ -1,3 +1,7 @@
+[submodule "VirtualDesktop"]
+    path = VirtualDesktop
+    url = https://github.com/MScholtes/VirtualDesktop.git
+
 [submodule "Win32HotkeyListener"]
-	path = Win32HotkeyListener
-	url = git@github.com:RobertMueller2/Win32HotkeyListener.git
+    path = Win32HotkeyListener
+    url = git@github.com:RobertMueller2/Win32HotkeyListener.git
