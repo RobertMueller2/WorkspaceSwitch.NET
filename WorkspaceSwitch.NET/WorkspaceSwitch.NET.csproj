@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -51,6 +51,36 @@
       <EmbeddedResource Include="res\10.ico">
         <LogicalName>Icon10</LogicalName>
       </EmbeddedResource>
+      <EmbeddedResource Include="res\1_dev.ico">
+        <LogicalName>Icon1_dev</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\2_dev.ico">
+        <LogicalName>Icon2_dev</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\3_dev.ico">
+        <LogicalName>Icon3_dev</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\4_dev.ico">
+        <LogicalName>Icon4_dev</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\5_dev.ico">
+        <LogicalName>Icon5_dev</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\6_dev.ico">
+        <LogicalName>Icon6_dev</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\7_dev.ico">
+        <LogicalName>Icon7_dev</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\8_dev.ico">
+        <LogicalName>Icon8_dev</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\9_dev.ico">
+        <LogicalName>Icon9_dev</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\10_dev.ico">
+        <LogicalName>Icon10_dev</LogicalName>
+      </EmbeddedResource>      
     </ItemGroup>
   <Message Text="Embed local references complete for $(OutputPath)$(TargetFileName)." Importance="high" />
   </Target>
