@@ -4,4 +4,4 @@
 
 [submodule "Win32HotkeyListener"]
     path = Win32HotkeyListener
-    url = git@github.com:RobertMueller2/Win32HotkeyListener.git
+    url = https://github.com/RobertMueller2/Win32HotkeyListener.git

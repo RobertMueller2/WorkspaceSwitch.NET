@@ -34,7 +34,7 @@ SOFTWARE.
 
 ## Win32HotkeyListener
 
-**Source**: git@github.com:RobertMueller2/Win32HotkeyListener.git
+**Source**: https://github.com/RobertMueller2/Win32HotkeyListener.git
 
 
 ### LICENSE
