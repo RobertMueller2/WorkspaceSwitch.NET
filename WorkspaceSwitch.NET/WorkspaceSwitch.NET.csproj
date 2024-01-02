@@ -80,9 +80,80 @@
       </EmbeddedResource>
       <EmbeddedResource Include="res\10_dev.ico">
         <LogicalName>Icon10_dev</LogicalName>
-      </EmbeddedResource>      
+      </EmbeddedResource>
     </ItemGroup>
-  <Message Text="Embed local references complete for $(OutputPath)$(TargetFileName)." Importance="high" />
+    <Message Text="Embed local references complete for $(OutputPath)$(TargetFileName)." Importance="high" />
+  </Target>
+
+  <ItemGroup>
+    <None Include="../LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="../NOTICE.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <UsingTask TaskName="GenerateNotice" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <SubProjects ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <NoticeFile ParameterType="System.String" Required="true" />
+      <GitRepoUrls ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.IO" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          File.WriteAllText(NoticeFile, "# Notice\r\n\r\nWorkspaceSwitch.NET incorporates the following software components:\r\n\r\n");
+          var i=0;
+          var files = new string[] { "LICENSE", "NOTICE.md" };
+          
+          foreach (var dir in SubProjects)
+          {            
+            File.AppendAllText(NoticeFile, $"## { Path.GetFileName(dir.ItemSpec) }\r\n\r\n");
+
+            var tmpfile = GitRepoUrls[i].ItemSpec;
+            var repoUrl = File.ReadAllText(tmpfile);
+            File.AppendAllText(NoticeFile, $"**Source**: { repoUrl }\r\n\r\n");
+            File.Delete(tmpfile);
+            
+            foreach (var file in files)
+            {
+              var realFile = dir.ItemSpec + Path.DirectorySeparatorChar + file;
+            
+              if (File.Exists(realFile))
+              {
+                File.AppendAllText(NoticeFile, $"### { file }\r\n\r\n");
+                File.AppendAllText(NoticeFile, $"{ File.ReadAllText(realFile) }\r\n\r\n");
+              }
+            }
+            
+            i++;
+          }
+          return true;
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="GenerateNoticeTask" DependsOnTargets="FetchGitOrigins" BeforeTargets="Build">
+    <GenerateNotice
+      SubProjects="@(SubProject)"
+      NoticeFile="../NOTICE.md"
+      GitRepoUrls="@(GitOriginUrl)" />
+  </Target>
+
+  <Target Name="FetchGitOrigins">
+    <ItemGroup>
+      <SubProject Include="../VirtualDesktop" />
+      <SubProject Include="../Win32HotkeyListener" />
+    </ItemGroup>
+
+    <Exec Command="git -C %(SubProject.Identity) remote get-url origin &gt; %(SubProject.Identity).tmp" />
+
+    <ItemGroup>
+      <GitOriginUrl Include="@(SubProject -> '%(Identity).tmp')" />
+    </ItemGroup>
   </Target>
 
   <ItemGroup>

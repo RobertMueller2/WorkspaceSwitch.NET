@@ -3,5 +3,6 @@
 **/.vscode/tasks.json
 **/bin
 **/obj
+**/*.csproj.user
 LocalSettings.props
 msbuild.cfg

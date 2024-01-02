@@ -1,11 +1,13 @@
-# NOTICES
+# Notice
 
-This project includes 3rd party software as submodules and in potential future binary releases.
+WorkspaceSwitch.NET incorporates the following software components:
 
-VirtualDesktop
---
+## VirtualDesktop
 
-**Source**: https://github.com/MScholtes/VirtualDesktop
+**Source**: https://github.com/MScholtes/VirtualDesktop.git
+
+
+### LICENSE
 
 MIT License
 
@@ -30,9 +32,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-Win32HotkeyListener
---
-**Source**: https://github.com/RobertMueller2/
+## Win32HotkeyListener
+
+**Source**: git@github.com:RobertMueller2/Win32HotkeyListener.git
+
+
+### LICENSE
 
 MIT License
 
@@ -55,3 +60,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
