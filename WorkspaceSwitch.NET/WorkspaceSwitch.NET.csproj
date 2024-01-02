@@ -136,6 +136,10 @@
     </Task>
   </UsingTask>
 
+  <Target Name="BuildVirtualDesktop" BeforeTargets="PrepareForBuild">
+    <Exec Command="..\VirtualDesktop\Compile.bat" WorkingDirectory="..\VirtualDesktop" />
+  </Target>
+  
   <Target Name="GenerateNoticeTask" DependsOnTargets="FetchGitOrigins" BeforeTargets="Build">
     <GenerateNotice
       SubProjects="@(SubProject)"
