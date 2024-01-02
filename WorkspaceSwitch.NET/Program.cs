@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Win32HotkeyListener;
 using WorkspaceSwitcher.Actions;
 using static WorkspaceSwitcher.Actions.VirtualDesktopAction;
+using WorkspaceSwitcher.Gui;
 
 namespace WorkspaceSwitcher {
     public static class Program {
@@ -98,7 +99,7 @@ namespace WorkspaceSwitcher {
 
             var hkl = new HotkeyListener(hotkeys);
             hkl.Run();
-            var g = new Gui(hkl);
+            var g = new MainWindow(hkl);
             
             Application.Run(g);
         }

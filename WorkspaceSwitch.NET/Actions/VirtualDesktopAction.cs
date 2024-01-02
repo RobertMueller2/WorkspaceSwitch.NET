@@ -3,17 +3,31 @@ using VirtualDesktop;
 using Win32HotkeyListener;
 
 namespace WorkspaceSwitcher.Actions {
+
+    /// <summary>
+    /// Action for Virtual Desktops (MakeVisible/MoveActiveWindow/MoveActiveWindowAndSwitch)
+    /// </summary>
     internal class VirtualDesktopAction : BaseAction {
 
+        /// <summary>
+        /// Represents the type of action to be performed on a virtual desktop
+        /// </summary>
         internal enum DesktopActionType {
             MakeVisible,
             MoveActiveWindow,
             MoveActiveWindowAndSwitch,
         };
 
+        /// <summary>
+        /// The type of action to be performed on a virtual desktop
+        /// </summary>
         internal DesktopActionType ActionType { get; set; }
 
+        /// <summary>
+        /// The hotkey that triggered this action. This is required because the hotkey holds the desktop number.
+        /// </summary>
         internal Hotkey Hotkey { get; set; }
+
 
         /// <summary>
         /// Implements BaseAction.Execute()
@@ -40,6 +54,7 @@ namespace WorkspaceSwitcher.Actions {
             if (Hotkey?.Target is int target) {
                 if (target+1 > Desktop.Count) {
                     Logger.GetInstance().Log($"Desktop {target+1} does not exist.");
+                    return false;
                 }
                 var method = targetMethod(Desktop.FromIndex(target));
                 method?.Invoke();                
