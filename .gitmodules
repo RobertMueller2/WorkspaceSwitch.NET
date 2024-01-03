@@ -1,6 +1,7 @@
 [submodule "VirtualDesktop"]
     path = VirtualDesktop
     url = https://github.com/MScholtes/VirtualDesktop.git
+    ignore = dirty
 
 [submodule "Win32HotkeyListener"]
     path = Win32HotkeyListener
