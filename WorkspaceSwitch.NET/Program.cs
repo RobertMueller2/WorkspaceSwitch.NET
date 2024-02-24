@@ -12,7 +12,7 @@ using WorkspaceSwitcher.Gui;
 namespace WorkspaceSwitcher {
     public static class Program {
 
-        // defines for commandline output
+        // allow command line output for GUI application
         [DllImport("kernel32.dll")]
         static extern bool AttachConsole(int dwProcessId);
         private const int ATTACH_PARENT_PROCESS = -1;
