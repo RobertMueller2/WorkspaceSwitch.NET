@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace WorkspaceSwitcher.Gui {
@@ -24,6 +25,9 @@ namespace WorkspaceSwitcher.Gui {
         }
 
         private void InitializeComponent() {
+            var assembly = System.Reflection.Assembly.GetEntryAssembly();
+            this.Icon = new Icon(assembly.GetManifestResourceStream("AppIcon"));
+
             this.label = new System.Windows.Forms.Label();
             this.linkLabel = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();

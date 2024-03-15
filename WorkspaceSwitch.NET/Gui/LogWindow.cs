@@ -1,5 +1,6 @@
 ﻿namespace WorkspaceSwitcher.Gui {
     using System;
+    using System.Drawing;
     using System.Windows.Forms;
 
     using Win32HotkeyListener;
@@ -25,7 +26,8 @@
         /// </summary>
         /// <param name="messages"></param>
         private void InitializeComponent(string messages) {
-
+            var assembly = System.Reflection.Assembly.GetEntryAssembly();
+            this.Icon =  new Icon(assembly.GetManifestResourceStream("AppIcon"));
             this.Width = 800;
             this.Height = 600;
             textbox = new TextBox();
