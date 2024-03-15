@@ -24,7 +24,7 @@ namespace WorkspaceSwitcher {
             var MoveActiveWindowAndSwitchModifiersString = "CTRL,WIN,SHIFT";
             var MoveActiveWindowModifiersString = "WIN,SHIFT";
             var MakeVisibleModifiersString = "CTRL,WIN";
-            var stickyKeyCombinationString = "CTRL,WIN+T";
+            var stickyKeyCombinationString = "CTRL,WIN,SHIFT+T";
 
             for (int i = 0; i < args.Length; i++) {
 

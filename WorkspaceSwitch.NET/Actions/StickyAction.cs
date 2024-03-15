@@ -15,6 +15,9 @@ namespace WorkspaceSwitcher.Actions {
         /// </summary>
         public override bool Execute() {
             IntPtr hwnd = GetForegroundWindow();
+            if (hwnd == null || hwnd == IntPtr.Zero) {
+                return false;
+            }
             if (Desktop.IsWindowPinned(hwnd)) {
                 Desktop.UnpinWindow(hwnd);
             }
