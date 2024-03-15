@@ -137,6 +137,21 @@
   </UsingTask>
 
   <Target Name="BuildVirtualDesktop" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <ExeFiles Include="..\VirtualDesktop\*.exe" />
+      <CsFiles Include="..\VirtualDesktop\*.cs" />
+    </ItemGroup>
+
+    <!-- Convert .cs filenames to a format that matches the .exe filenames for comparison -->
+    <ItemGroup>
+      <TransformedCsFiles Include="@(CsFiles->'%(Filename)')"/>
+    </ItemGroup>
+
+    <!-- Delete .exe files where no matching .cs file basename exists -->
+    <Delete
+      Files="@(ExeFiles)"
+      Condition="'@(TransformedCsFiles)' == '' Or !Exists('..\VirtualDesktop\%(Filename).cs')"
+  />
     <Exec Command="..\VirtualDesktop\Compile.bat" WorkingDirectory="..\VirtualDesktop" />
   </Target>
   
