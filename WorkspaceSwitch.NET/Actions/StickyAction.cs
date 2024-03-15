@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using VirtualDesktop;
 using Win32HotkeyListener;
 
@@ -15,14 +16,20 @@ namespace WorkspaceSwitcher.Actions {
         /// </summary>
         public override bool Execute() {
             IntPtr hwnd = GetForegroundWindow();
-            if (hwnd == null || hwnd == IntPtr.Zero) {
+            
+            if (hwnd == IntPtr.Zero) {
                 return false;
             }
-            if (Desktop.IsWindowPinned(hwnd)) {
-                Desktop.UnpinWindow(hwnd);
-            }
-            else {
-                Desktop.PinWindow(hwnd);
+            try {
+                if (Desktop.IsWindowPinned(hwnd)) {
+                    Desktop.UnpinWindow(hwnd);
+                }
+                else {
+                    Desktop.PinWindow(hwnd);
+                }
+            } catch (COMException e) {
+                Logger.GetInstance().Log("Error: " + e.Message);
+                return false;
             }
             return true;
         }

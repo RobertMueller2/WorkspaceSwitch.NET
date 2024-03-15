@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using VirtualDesktop;
 using Win32HotkeyListener;
 
@@ -57,7 +58,14 @@ namespace WorkspaceSwitcher.Actions {
                     return false;
                 }
                 var method = targetMethod(Desktop.FromIndex(target));
-                method?.Invoke();                
+
+                try {
+                    method?.Invoke();
+                }
+                catch (COMException e) {
+                    Logger.GetInstance().Log("Error: " + e.Message);
+                    return false;
+                }
                 return true;
             }
             return false;
