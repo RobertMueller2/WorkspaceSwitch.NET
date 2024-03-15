@@ -25,7 +25,7 @@ As soon as Windows ships with hotkeys that allow to address specific virtual des
 
 WorkspaceSwitch.NET registers global hotkeys `MODIFIER+1..0`:
 - Switch Virtual Desktop
-  - Default `WIN+1..0`
+  - Default `CTRL,WIN+1..0`
   - modifiers can be changed with command line parameter `--switch-desktop-modifiers`
 - Move active window to target virtual desktop
   - Default `WIN,SHIFT+1..0`
@@ -36,7 +36,7 @@ WorkspaceSwitch.NET registers global hotkeys `MODIFIER+1..0`:
 
 Additionally, pinning/unpinning windows to all desktop ("sticky") is possible with the default key combination `CTRL,WIN+T`. It can be overridden with the parameter `--sticky-key-combination`, followed by `MODIFIER1,MODIFIER2,...+KEY`
 
-Please note that the default binding `WIN+1..0` are already bound to the taskbar. To disable these, you can use the following registry command:
+If you want to bind `WIN+1..0`, please note they are already bound to the taskbar. To disable these, you can use the following registry command:
 
 ```
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisabledHotkeys" /t REG_SZ /d "1234567890" /f
