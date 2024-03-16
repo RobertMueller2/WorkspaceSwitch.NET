@@ -17,13 +17,18 @@ namespace WorkspaceSwitcher.Gui
         private HotkeyListener HotkeyListener;
         private Icon AppIcon;
         private Icon[] WorkspaceIcons;
+        private Icon[] DisabledWorkspaceIcons;
         private int LastDesktop;
+        private bool LastRunning;
 
         private readonly string tooltipTitle = "Messages";
         private readonly string popupTitle = "Errors";
         private readonly string fatalPrefix = "Fatal error. Exiting.";
 
         private NotifyIcon trayIcon;
+
+        private MenuItem MenuItemSuspend;
+        private MenuItem MenuItemContinue;
 
         /// <summary>
         /// Constructor for MainWindow, takes a HotkeyListener.
@@ -39,6 +44,15 @@ namespace WorkspaceSwitcher.Gui
             InitializeResources();
             InitialiseForm();
             InitializeTray();
+
+            hotkeyListener.RunningChanged += (sender, e) => {
+                MenuItemContinue.Enabled = !hotkeyListener.Running;
+                MenuItemSuspend.Enabled = hotkeyListener.Running;
+            };
+
+            hotkeyListener.OnCompleted += () => {
+                Logger.GetInstance().Log("Hotkeys suspended", MessageType.Info, PresentationType.ToolTip);
+            };
         }
 
         /// <summary>
@@ -65,13 +79,16 @@ namespace WorkspaceSwitcher.Gui
             AppIcon = new Icon(assembly.GetManifestResourceStream("AppIcon"));
 
             WorkspaceIcons = new Icon[10];
+            DisabledWorkspaceIcons = new Icon[10];
 
             for (var i = 1; i <= 10; i++)
             {
 #if DEBUG
                 WorkspaceIcons[i - 1] = new Icon(assembly.GetManifestResourceStream(String.Format("Icon{0}_dev", i)));
+                DisabledWorkspaceIcons[i - 1] = new Icon(assembly.GetManifestResourceStream(String.Format("Icon{0}_dev_disabled", i)));
 #else
                 WorkspaceIcons[i - 1] = new Icon(assembly.GetManifestResourceStream(string.Format("Icon{0}", i)));
+                DisabledWorkspaceIcons[i - 1] = new Icon(assembly.GetManifestResourceStream(string.Format("Icon{0}_disabled", i)));
 #endif
             }
         }
@@ -88,23 +105,30 @@ namespace WorkspaceSwitcher.Gui
             var menuItemExit = new MenuItem();
             var menuItemLog = new MenuItem();
             var menuItemRefresh = new MenuItem();
+            MenuItemSuspend = new MenuItem();
+            MenuItemContinue = new MenuItem();
 
-            menuItemAbout.Index = 1;
             menuItemAbout.Text = "About...";
             menuItemAbout.Click += new EventHandler(MenuItemAbout_Click);
 
-            menuItemExit.Index = 2;
             menuItemExit.Text = "Exit";
             menuItemExit.Click += new EventHandler(MenuItemExit_Click);
-
-            menuItemRefresh.Index = 0;
-            menuItemRefresh.Text = "Refresh";
-            menuItemRefresh.Click += new EventHandler(MenuItemRefresh_Click);
 
             menuItemLog.Text = "Show log...";
             menuItemLog.Click += new System.EventHandler(this.MenuItemLog_Click);
 
-            trayMenu.MenuItems.AddRange(new MenuItem[] { menuItemRefresh, menuItemAbout, menuItemLog, menuItemExit });
+            menuItemRefresh.Text = "Refresh Workspace";
+            menuItemRefresh.Click += new EventHandler(MenuItemRefresh_Click);
+
+            MenuItemSuspend.Text = "Suspend Hotkeys";
+            MenuItemSuspend.Click += (sender, e) => HotkeyListener.Stop();
+            MenuItemSuspend.Enabled = HotkeyListener.Running;
+
+            MenuItemContinue.Text = "Continue Hotkeys";
+            MenuItemContinue.Click += (sender, e) => HotkeyListener.Run();
+            MenuItemContinue.Enabled = !HotkeyListener.Running;
+
+            trayMenu.MenuItems.AddRange(new MenuItem[] { menuItemRefresh, MenuItemSuspend, MenuItemContinue, menuItemAbout, menuItemLog, menuItemExit });
 
             trayIcon.Text = "WorkspaceSwitch.NET";
             trayIcon.Icon = AppIcon;
@@ -240,12 +264,12 @@ namespace WorkspaceSwitcher.Gui
             timer.Stop();
             var cd = Desktop.FromDesktop(Desktop.Current);
 
-            if (cd != LastDesktop)
+            if (cd != LastDesktop || LastRunning != HotkeyListener.Running)
             {
                 Icon icon;
                 if (cd >= 0 && cd < 10)
                 {
-                    icon = WorkspaceIcons[cd];
+                    icon = (HotkeyListener.Running) ? WorkspaceIcons[cd] : DisabledWorkspaceIcons[cd];
                 }
                 else
                 {
@@ -254,6 +278,7 @@ namespace WorkspaceSwitcher.Gui
 
                 trayIcon.Icon = icon;
                 LastDesktop = cd;
+                LastRunning = HotkeyListener.Running;
             }
 
             if (trayIcon != null) {

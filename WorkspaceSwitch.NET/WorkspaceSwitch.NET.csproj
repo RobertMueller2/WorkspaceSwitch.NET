@@ -81,6 +81,66 @@
       <EmbeddedResource Include="res\10_dev.ico">
         <LogicalName>Icon10_dev</LogicalName>
       </EmbeddedResource>
+      <EmbeddedResource Include="res\1_disabled.ico">
+        <LogicalName>Icon1_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\2_disabled.ico">
+        <LogicalName>Icon2_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\3_disabled.ico">
+        <LogicalName>Icon3_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\4_disabled.ico">
+        <LogicalName>Icon4_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\5_disabled.ico">
+        <LogicalName>Icon5_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\6_disabled.ico">
+        <LogicalName>Icon6_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\7_disabled.ico">
+        <LogicalName>Icon7_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\8_disabled.ico">
+        <LogicalName>Icon8_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\9_disabled.ico">
+        <LogicalName>Icon9_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\10_disabled.ico">
+        <LogicalName>Icon10_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\1_dev_disabled.ico">
+        <LogicalName>Icon1_dev_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\2_dev_disabled.ico">
+        <LogicalName>Icon2_dev_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\3_dev_disabled.ico">
+        <LogicalName>Icon3_dev_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\4_dev_disabled.ico">
+        <LogicalName>Icon4_dev_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\5_dev_disabled.ico">
+        <LogicalName>Icon5_dev_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\6_dev_disabled.ico">
+        <LogicalName>Icon6_dev_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\7_dev_disabled.ico">
+        <LogicalName>Icon7_dev_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\8_dev_disabled.ico">
+        <LogicalName>Icon8_dev_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\9_dev_disabled.ico">
+        <LogicalName>Icon9_dev_disabled</LogicalName>
+      </EmbeddedResource>
+      <EmbeddedResource Include="res\10_dev_disabled.ico">
+        <LogicalName>Icon10_dev_disabled</LogicalName>
+      </EmbeddedResource>
     </ItemGroup>
     <Message Text="Embed local references complete for $(OutputPath)$(TargetFileName)." Importance="high" />
   </Target>

@@ -6,8 +6,19 @@ for ($i = 1; $i -le 10; $i++) {
     magick convert -background black -fill white -font Verdana -pointsize 80 -size 96x96 -gravity center label:$i $img
 }
 
+for ($i = 1; $i -le 10; $i++) {
+    $img = "$i" + "_disabled.ico"
+    magick convert -background red -fill white -font Verdana -pointsize 80 -size 96x96 -gravity center label:$i $img
+}
+
 # dev icons
 for ($i = 1; $i -le 10; $i++) {
     $img = "$i" + "_dev.ico"
     magick convert -background blue -fill white -font Verdana -pointsize 80 -size 96x96 -gravity center label:$i $img
 }
+
+for ($i = 1; $i -le 10; $i++) {
+    $img = "$i" + "_dev_disabled.ico"
+    magick convert -background maroon -fill white -font Verdana -pointsize 80 -size 96x96 -gravity center label:$i $img
+}
+
