@@ -37,13 +37,15 @@ WorkspaceSwitch.NET registers global hotkeys `MODIFIER+1..0`:
   - modifiers can be changed with command line parameter `--switch-and-move-modifiers`
   - use `NONE` to disable
 
-Additionally, pinning/unpinning windows to all desktop ("sticky") is possible with the default key combination `WIN,SHIFT+T`. It can be overridden with the parameter `--sticky-key-combination`, followed by `MODIFIER1,MODIFIER2,...+KEY`. Again, `NONE` instead of a combination can be used to disable the hotkey.
+Additionally, pinning/unpinning windows to all desktop ("sticky") is possible with the default key combination `CTRL,WIN,SHIFT+T`. It can be overridden with the parameter `--sticky-key-combination`, followed by `MODIFIER1,MODIFIER2,...+KEY`. Again, `NONE` instead of a combination can be used to disable the hotkey.
 
-Please note that the default binding `WIN+1..0` are already bound to the taskbar. To disable these, you can use the following registry command:
+Please note that the default binding `WIN+1..0` are already bound to the taskbar. This also affects combinations with Ctrl, Alt, Shift and Ctrl+Shift. To disable these, you can use the following registry command:
 
 ```
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisabledHotkeys" /t REG_SZ /d "1234567890" /f
 ```
+
+As far as I know, this requires a restart.
 
 ## Build
 
