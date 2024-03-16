@@ -60,7 +60,7 @@ namespace WorkspaceSwitcher {
                 }
             }
 
-            if (stickyKeyCombinationString.Split('+').Length != 2) {
+            if (stickyKeyCombinationString.Split('+').Length != 2 && !stickyKeyCombinationString.Equals("NONE", StringComparison.InvariantCultureIgnoreCase)) {
                 Console.WriteLine($"Invalid sticky key combination: {stickyKeyCombinationString}");
                 ShowUsage();
                 return;
@@ -69,7 +69,7 @@ namespace WorkspaceSwitcher {
             // is 6 modifiers enough? who knows...
             // safe according to devina.io
             // 2,10 is arbitrary, but should be a close enough guess for a modifier string
-            Regex ModifierRegex = new Regex(@"^[a-zA-Z0-9]{2,10}((,[a-zA-Z0-9]{2,10}){0,4})$", RegexOptions.Compiled);
+            Regex ModifierRegex = new Regex(@"^([a-z0-9]{2,10}((,[a-z0-9]{2,10}){0,4})|NONE)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             foreach (var modifierString in new string[] { MoveActiveWindowAndSwitchModifiersString, MoveActiveWindowModifiersString, MakeVisibleModifiersString, stickyKeyCombinationString.Split('+')[0] }) {
                 if (!ModifierRegex.IsMatch(modifierString)) {
@@ -80,19 +80,26 @@ namespace WorkspaceSwitcher {
             }
 
             // all other checks, i.e. whether the individual tokens are valid, are done in KeyCombination and Hotkey
-
             List<Hotkey> hotkeys = new List<Hotkey>();
 
             var actions = Enum.GetValues(typeof(DesktopActionType)).Cast<DesktopActionType>().ToList();
 
             for (int i = 0; i < 10; i++) {
-                hotkeys.Add(new Hotkey(MakeVisibleModifiersString.Split(',').ToList(), $"D{i}") { Target = i.AdjustOverflow().ToTarget(), Action = new VirtualDesktopAction() { ActionType = (DesktopActionType)Enum.Parse(typeof(DesktopActionType), "MakeVisible") } });
-                hotkeys.Add(new Hotkey(MoveActiveWindowModifiersString.Split(',').ToList(), $"D{i}") { Target = i.AdjustOverflow().ToTarget(), Action = new VirtualDesktopAction() { ActionType = (DesktopActionType)Enum.Parse(typeof(DesktopActionType), "MoveActiveWindow") } });
-                hotkeys.Add(new Hotkey(MoveActiveWindowAndSwitchModifiersString.Split(',').ToList(), $"D{i}") { Target = i.AdjustOverflow().ToTarget(), Action = new VirtualDesktopAction() { ActionType = (DesktopActionType)Enum.Parse(typeof(DesktopActionType), "MoveActiveWindowAndSwitch") } });
+                if (!MakeVisibleModifiersString.Equals("NONE", StringComparison.InvariantCultureIgnoreCase)) {
+                    hotkeys.Add(new Hotkey(MakeVisibleModifiersString.Split(',').ToList(), $"D{i}") { Target = i.AdjustOverflow().ToTarget(), Action = new VirtualDesktopAction() { ActionType = (DesktopActionType)Enum.Parse(typeof(DesktopActionType), "MakeVisible") } });
+                }
+                if (!MoveActiveWindowModifiersString.Equals("NONE", StringComparison.InvariantCultureIgnoreCase)) {
+                    hotkeys.Add(new Hotkey(MoveActiveWindowModifiersString.Split(',').ToList(), $"D{i}") { Target = i.AdjustOverflow().ToTarget(), Action = new VirtualDesktopAction() { ActionType = (DesktopActionType)Enum.Parse(typeof(DesktopActionType), "MoveActiveWindow") } });
+                }
+                if (!MoveActiveWindowAndSwitchModifiersString.Equals("NONE", StringComparison.InvariantCultureIgnoreCase)) {
+                    hotkeys.Add(new Hotkey(MoveActiveWindowAndSwitchModifiersString.Split(',').ToList(), $"D{i}") { Target = i.AdjustOverflow().ToTarget(), Action = new VirtualDesktopAction() { ActionType = (DesktopActionType)Enum.Parse(typeof(DesktopActionType), "MoveActiveWindowAndSwitch") } });
+                }
             }
 
-            var stickyKeyCombo = stickyKeyCombinationString.Split('+'); // this should be ok due to the checks above
-            hotkeys.Add(new Hotkey(stickyKeyCombo[0].Split(',').ToList(), stickyKeyCombo[1]) { Action = new StickyAction() }) ;
+            if (!stickyKeyCombinationString.Equals("NONE", StringComparison.InvariantCultureIgnoreCase)) {
+                var stickyKeyCombo = stickyKeyCombinationString.Split('+'); // this should be ok due to the checks above
+                hotkeys.Add(new Hotkey(stickyKeyCombo[0].Split(',').ToList(), stickyKeyCombo[1]) { Action = new StickyAction() });
+            }
 
             // we don't expect any errors beyond here, so may as well remove the console output
             Console.SetOut(Logger.GetInstance());
@@ -114,13 +121,18 @@ namespace WorkspaceSwitcher {
 
         //TODO: Proper visualisation of modifiers and keys
         private static void ShowUsage() {
-            Console.WriteLine("Usage: WorkspaceSwitcher [options]");
+            Console.WriteLine();
+            Console.WriteLine(String.Format("Usage: {0} [options]", System.AppDomain.CurrentDomain.FriendlyName));
+            Console.WriteLine();
             Console.WriteLine("Options:");
-            Console.WriteLine("  -h, --help\t\t\tShow this help message and exit");
-            Console.WriteLine("  -a, --switch-and-move-modifiers\tModifier keys for switching desktop and moving active window");
-            Console.WriteLine("  -m, --move-window-modifiers\t\tModifier keys for moving active window");
-            Console.WriteLine("  -s, --switch-desktop-modifiers\tModifier keys for switching desktop");
-            Console.WriteLine("  -t, --sticky-key-combination\t\tKey combination for sticky mode");            
+            Console.WriteLine(String.Format("  {0,-54}{1}", "-h, --help", "Show this help message and exit"));
+            Console.WriteLine(String.Format("  {0,-54}{1}", "-a, --switch-and-move-modifiers <MODIFIERS>", "Modifier keys for switching desktop and moving active window"));
+            Console.WriteLine(String.Format("  {0,-54}{1}", "-m, --move-window-modifiers <MODIFIERS>", "Modifier keys for moving active window"));
+            Console.WriteLine(String.Format("  {0,-54}{1}", "-s, --switch-desktop-modifiers <MODIFIERS>", "Modifier keys for switching desktop"));
+            Console.WriteLine(String.Format("  {0,-54}{1}", "-t, --sticky-key-combination <KEY COMBINATION>", "Key combination for sticky mode"));
+            Console.WriteLine();
+            Console.WriteLine("MODIFIERS:\t\tmod1[,mod2[,mod3[,mod4[,mod5]]]] or NONE");
+            Console.WriteLine("KEY COMBINATION:\tmod1[,mod2[,mod3[,mod4[,mod5]]]]+key or NONE");
         }
     }
 
