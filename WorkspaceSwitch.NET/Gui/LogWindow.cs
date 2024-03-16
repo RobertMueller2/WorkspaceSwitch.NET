@@ -39,7 +39,7 @@
             textbox.Dock = DockStyle.Fill;
             textbox.Text = messages + Environment.NewLine;
             textbox.Select(0, 0);
-
+            FormClosing += LogWindow_FormClosing;
         }
 
         /// <summary>
@@ -54,13 +54,9 @@
             textbox.BeginInvoke(new Action(() => textbox.AppendText(message + Environment.NewLine)));
         }
 
-        /// <summary>
-        /// Dispose of the window.
-        /// </summary>
-        public new void Dispose() {
+        private void LogWindow_FormClosing(object sender, FormClosingEventArgs e) {
             Logger.GetInstance().LogUpdated -= UpdateLog;
-            textbox.Dispose();
-            base.Dispose();
         }
+
     }
 }
