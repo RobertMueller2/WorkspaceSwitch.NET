@@ -61,7 +61,7 @@ Copy LocalSettings.csproj.template to LocalSettings.csproj and adjust the exe fi
 
 Basically, because there needs to be executables per Windows version due to the unstable com classes.
 
-This could indeed be done in a similar fashion as Markus provides several executables for individual Windows versions. I could use specific buiild configurations, and I suppose building the targets could even be automated via Github. But so far, this hasn't been a priority.
+This could indeed be done in a similar fashion as Markus provides several executables for individual Windows versions. I could use specific build configurations, and I suppose building the targets could even be automated via Github. But so far, this hasn't been a priority.
 
 ### Why is this not available via Winget?
 
@@ -83,5 +83,5 @@ Yeah, why don't I? I like Rust. Binding global Windows hotkeys with Rust is poss
 
 Building on [VirtualDesktopAccessor](https://github.com/Ciantic/VirtualDesktopAccessor) might be a possibility for the future.
 
-That said, my commercial activities revolve around .NET. The likelyhood of me finding a Visual Studio and a .NET SDK is a lot higher than finding rustc or cargo.
+That said, my commercial activities revolve around .NET. The likelihood of me finding a Visual Studio and a .NET SDK is a lot higher than finding rustc or cargo.
 
