@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/WorkspaceSwitch.NET.csproj",
+                "${workspaceFolder}/WorkspaceSwitch.NET/WorkspaceSwitch.NET.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "shell",
             "args": [
                 "publish",
-		"${workspaceFolder}/WorkspaceSwitch.NET.csproj",
+		"${workspaceFolder}/WorkspaceSwitch.NET/WorkspaceSwitch.NET.csproj",
 		"--configuration=Release"
             ],
             "problemMatcher": "$msCompile"
@@ -32,7 +32,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/WorkspaceSwitch.NET.csproj"
+                "${workspaceFolder}/WorkspaceSwitch.NET/WorkspaceSwitch.NET.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
