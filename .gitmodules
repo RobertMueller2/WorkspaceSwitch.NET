@@ -7,5 +7,5 @@
     path = Win32HotkeyListener
     url = https://github.com/RobertMueller2/Win32HotkeyListener.git
 [submodule "msbuild.cfg examples"]
-	path = msbuild.cfg examples
-	url = git@github.com:RobertMueller2/msbuild.cfg-examples.git
+    path = msbuild.cfg examples
+    url = https://github.com/RobertMueller2/msbuild.cfg-examples.git
