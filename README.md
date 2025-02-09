@@ -49,11 +49,13 @@ As far as I know, this requires a restart.
 
 ## Build
 
-Use Visual Studio. I have not updated/tested the VSCode task examples recently.
+Use Visual Studio. VSCode (using `dotnet build`) should work, too, but this gets less testing.
 
 The subproject VirtualDesktop is built depending on Windows version, because the API is not stable. At this point, this has to be configured manually.
 
 Copy LocalSettings.csproj.template to LocalSettings.csproj and adjust the exe file reference according to your Windows version.
+
+There is a convenience `build.bat` which works with both MSBuild (if `msbuild.cfg` exists) and `dotnet build`.
 
 ## Anticipated Questions
 

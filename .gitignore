@@ -4,5 +4,6 @@
 **/bin
 **/obj
 **/*.csproj.user
+build
 LocalSettings.props
 msbuild.cfg
