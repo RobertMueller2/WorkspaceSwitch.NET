@@ -15,7 +15,7 @@ namespace WorkspaceSwitcher {
             KeyCombo = new KeyCombination() { Key = new Key() { KeyStr = keyString } , Modifiers = modifiers };
         }
 
-        public new BaseAction Action {
+        public new BaseAction? Action {
             get => base.Action;
             set {
                 if (value is Actions.VirtualDesktopAction action) {

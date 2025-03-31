@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <TargetFrameWork>net481</TargetFrameWork>
+  </PropertyGroup>
+</Project>

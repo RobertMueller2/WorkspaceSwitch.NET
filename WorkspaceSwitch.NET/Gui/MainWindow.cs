@@ -41,7 +41,19 @@ namespace WorkspaceSwitcher.Gui
 
             this.timer = new System.Windows.Forms.Timer();
 
-            InitializeResources();
+            var assembly = System.Reflection.Assembly.GetEntryAssembly();
+            AppIcon = new Icon(assembly.GetManifestResourceStream("AppIcon"));
+
+            WorkspaceIcons = new Icon[10];
+            DisabledWorkspaceIcons = new Icon[10];
+            
+            InitializeResources(assembly);
+
+            var components = new System.ComponentModel.Container();
+            trayIcon = new NotifyIcon(components);
+            MenuItemSuspend = new MenuItem();
+            MenuItemContinue = new MenuItem();
+
             InitialiseForm();
             InitializeTray();
 
@@ -73,14 +85,8 @@ namespace WorkspaceSwitcher.Gui
         /// <summary>
         /// Initializes the resources used for the application.
         /// </summary>
-        private void InitializeResources()
+        private void InitializeResources(System.Reflection.Assembly assembly)
         {
-            var assembly = System.Reflection.Assembly.GetEntryAssembly();
-            AppIcon = new Icon(assembly.GetManifestResourceStream("AppIcon"));
-
-            WorkspaceIcons = new Icon[10];
-            DisabledWorkspaceIcons = new Icon[10];
-
             for (var i = 1; i <= 10; i++)
             {
 #if DEBUG
@@ -98,15 +104,11 @@ namespace WorkspaceSwitcher.Gui
         /// </summary>
         private void InitializeTray()
         {
-            var components = new System.ComponentModel.Container();
-            trayIcon = new NotifyIcon(components);
             var trayMenu = new ContextMenu();
             var menuItemAbout = new MenuItem();
             var menuItemExit = new MenuItem();
             var menuItemLog = new MenuItem();
             var menuItemRefresh = new MenuItem();
-            MenuItemSuspend = new MenuItem();
-            MenuItemContinue = new MenuItem();
 
             menuItemAbout.Text = "About...";
             menuItemAbout.Click += new EventHandler(MenuItemAbout_Click);

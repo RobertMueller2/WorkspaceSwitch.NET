@@ -19,6 +19,13 @@ namespace WorkspaceSwitcher.Gui {
         /// 
         /// </summary>
         internal AboutWindow() {
+            this.label = new System.Windows.Forms.Label();
+            this.linkLabel = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+
             InitializeComponent();
             textBox1.Text = File.ReadAllText("NOTICE.md");
             label.Text = "WorkspaceSwitch.NET v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -28,12 +35,7 @@ namespace WorkspaceSwitcher.Gui {
             var assembly = System.Reflection.Assembly.GetEntryAssembly();
             this.Icon = new Icon(assembly.GetManifestResourceStream("AppIcon"));
 
-            this.label = new System.Windows.Forms.Label();
-            this.linkLabel = new System.Windows.Forms.LinkLabel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+
             this.SuspendLayout();
             // 
             // label

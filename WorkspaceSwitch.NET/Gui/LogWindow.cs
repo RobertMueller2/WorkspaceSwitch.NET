@@ -19,6 +19,7 @@
         internal LogWindow(string messages) {
             InitializeComponent(messages);
             Logger.GetInstance().LogUpdated += UpdateLog;
+            textbox = new TextBox();
         }
 
         /// <summary>
@@ -30,7 +31,7 @@
             this.Icon =  new Icon(assembly.GetManifestResourceStream("AppIcon"));
             this.Width = 800;
             this.Height = 600;
-            textbox = new TextBox();
+            
             this.Controls.Add(textbox);
 
             textbox.ReadOnly = true;

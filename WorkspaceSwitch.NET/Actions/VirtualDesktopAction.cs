@@ -27,7 +27,7 @@ namespace WorkspaceSwitcher.Actions {
         /// <summary>
         /// The hotkey that triggered this action. This is required because the hotkey holds the desktop number.
         /// </summary>
-        internal Hotkey Hotkey { get; set; }
+        internal Hotkey? Hotkey { get; set; }
 
 
         /// <summary>
