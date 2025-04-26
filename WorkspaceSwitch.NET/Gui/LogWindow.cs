@@ -17,9 +17,9 @@
         /// </summary>
         /// <param name="messages"></param>
         internal LogWindow(string messages) {
+            textbox = new TextBox();
             InitializeComponent(messages);
             Logger.GetInstance().LogUpdated += UpdateLog;
-            textbox = new TextBox();
         }
 
         /// <summary>
