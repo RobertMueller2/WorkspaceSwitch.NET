@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using VirtualDesktop;
 using Win32HotkeyListener;
@@ -264,7 +265,15 @@ namespace WorkspaceSwitcher.Gui
         private void Timer_Tick(object o, EventArgs args)
         {
             timer.Stop();
-            var cd = Desktop.FromDesktop(Desktop.Current);
+            var cd = -1;
+            try {
+                cd = Desktop.FromDesktop(Desktop.Current);
+            } catch (COMException e) {
+                // very likely the RPC connection died, no way to recover from this with VirtualDesktop
+                Logger.GetInstance().Log("Cannot retrieve virtual desktop at this time, restarting Application.", MessageType.Info, PresentationType.None);
+                Application.Restart();
+                return;
+            }
 
             if (cd != LastDesktop || LastRunning != HotkeyListener.Running)
             {

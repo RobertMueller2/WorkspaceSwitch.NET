@@ -53,17 +53,16 @@ namespace WorkspaceSwitcher.Actions {
             }
 
             if (Hotkey?.Target is int target) {
-                if (target+1 > Desktop.Count) {
-                    Logger.GetInstance().Log($"Desktop {target+1} does not exist.");
-                    return false;
-                }
-                var method = targetMethod(Desktop.FromIndex(target));
-
                 try {
+                    if (target+1 > Desktop.Count) {
+                        Logger.GetInstance().Log($"Desktop {target+1} does not exist.");
+                        return false;
+                    }
+                    var method = targetMethod(Desktop.FromIndex(target));
                     method?.Invoke();
                 }
                 catch (COMException e) {
-                    Logger.GetInstance().Log("Error: " + e.Message);
+                    Logger.GetInstance().Log($"Error: { e.Message }. If RPC Server died, let next tick restart application.", MessageType.Error, PresentationType.ToolTip);
                     return false;
                 }
                 return true;
