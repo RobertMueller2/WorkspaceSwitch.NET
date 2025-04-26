@@ -29,33 +29,56 @@ if not "%anyfound%"=="1" (
     exit /b 1
 )
 
-if defined havemsbuild (
-    echo 1. MSBuild debug
-    echo 2. MSBuild release
-)
-if defined havedotnet (
-    echo 3. dotnet build debug
-    echo 4. dotnet build release
-)
+echo 1. Debug Build
+echo 2. Release Build
+choice /c 12 /m "Select build config: "
 
-choice /c %havemsbuild%%havedotnet% /m "Select build option: "
-
-REM does not work unless in descending order
-if errorlevel 4 (
-    echo dotnet release
-    dotnet build -c Release
-)
-if errorlevel 3 (
-    echo dotnet debug
-    dotnet build -c Debug
-)
 if errorlevel 2 (
-    echo MSBuild Release
-    %MSBUILD_PATH% /p:Configuration=Release
+    goto release    
 )
-if errorlevel 1 ( 
-    echo MSBuild Debug
-    %MSBUILD_PATH% /p:Configuration=Debug
+if errorlevel 1 (
+    goto debug
 )
 
+:release
+set CONFIG=Release
+goto config_end
+
+:debug
+set CONFIG=Debug
+goto config_end
+
+:config_end
+
+echo Building Config %CONFIG%
+timeout /t 1
+
+if defined havemsbuild (
+    if not defined havedotnet goto build_msbuild
+)
+
+if defined havedotnet (
+    if not defined havemsbuild goto build_dotnet
+)
+
+echo 1. dotnet
+echo 2. MSBuild
+choice /c 12 /m "Select build system: "
+
+if errorlevel 2 (
+  goto build_msbuild
+)
+if errorlevel 1 (
+  goto build_dotnet
+)
+
+:build_msbuild
+%MSBUILD_PATH% /p:Configuration=%CONFIG%
+goto end
+
+:build_dotnet
+dotnet build -c %CONFIG%
+goto end
+
+:end
 pause
