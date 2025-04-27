@@ -110,12 +110,16 @@ namespace WorkspaceSwitcher.Gui
             var menuItemExit = new MenuItem();
             var menuItemLog = new MenuItem();
             var menuItemRefresh = new MenuItem();
+            var menuItemRestart = new MenuItem();
 
             menuItemAbout.Text = "About...";
             menuItemAbout.Click += new EventHandler(MenuItemAbout_Click);
 
             menuItemExit.Text = "Exit";
             menuItemExit.Click += new EventHandler(MenuItemExit_Click);
+
+            menuItemRestart.Text = "Restart";
+            menuItemRestart.Click += new EventHandler(MenuItemExit_Restart);
 
             menuItemLog.Text = "Show log...";
             menuItemLog.Click += new System.EventHandler(this.MenuItemLog_Click);
@@ -131,12 +135,22 @@ namespace WorkspaceSwitcher.Gui
             MenuItemContinue.Click += (sender, e) => HotkeyListener.Run();
             MenuItemContinue.Enabled = !HotkeyListener.Running;
 
-            trayMenu.MenuItems.AddRange(new MenuItem[] { menuItemRefresh, MenuItemSuspend, MenuItemContinue, menuItemAbout, menuItemLog, menuItemExit });
+            trayMenu.MenuItems.AddRange(new MenuItem[] { menuItemRefresh, MenuItemSuspend, MenuItemContinue, menuItemAbout, menuItemLog, menuItemRestart, menuItemExit });
 
             trayIcon.Text = "WorkspaceSwitch.NET";
             trayIcon.Icon = AppIcon;
             trayIcon.Visible = true;
             trayIcon.ContextMenu = trayMenu;
+        }
+
+        /// <summary>
+        /// Method to handle Click event for restart menu item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void MenuItemExit_Restart(object sender, EventArgs e) {
+            Application.Restart();
         }
 
         /// <summary>
