@@ -1,8 +1,8 @@
 # WorkspaceSwitch.NET
 
-This is a Windows tool which allows to bind hotkeys for
+This is a Windows tool which allows to bind hotkeys to
 
-- switching virtual desktops
+- switch virtual desktops
 - move a window to a specific virtual desktop
 - move a window to a specific virtual desktop and switch to the same desktop
 - (un-)pin windows so they appear on all virtual desktops
